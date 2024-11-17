@@ -1,9 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://ighjye8pwkar"]
+[gd_scene load_steps=18 format=3 uid="uid://ighjye8pwkar"]
 
-[ext_resource type="Script" path="res://scripts/opusum.gd" id="1_06yhj"]
+[ext_resource type="Script" path="res://scripts/inimigo.gd" id="1_06yhj"]
 [ext_resource type="Texture2D" uid="uid://bnjsw6rdtjtf3" path="res://sprites/oposum.png" id="1_u7af3"]
 [ext_resource type="Texture2D" uid="uid://dq0aa48n7erjx" path="res://sprites/enemy-deadth.png" id="2_vfdvs"]
-[ext_resource type="PackedScene" uid="uid://dmjvm4gj58lyg" path="res://scenes/hitbox.tscn" id="3_fnyoh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s3kmd"]
 atlas = ExtResource("2_vfdvs")
@@ -102,8 +101,8 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5yewl"]
-size = Vector2(25, 20)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1nb2q"]
+size = Vector2(24, 20)
 
 [node name="Opusum" type="Node2D"]
 script = ExtResource("1_06yhj")
@@ -112,6 +111,7 @@ script = ExtResource("1_06yhj")
 sprite_frames = SubResource("SpriteFrames_tfaoy")
 animation = &"walking"
 autoplay = "walking"
+flip_h = true
 
 [node name="RayCastLeft" type="RayCast2D" parent="."]
 position = Vector2(-2, 4)
@@ -123,10 +123,14 @@ position = Vector2(-2, 4)
 target_position = Vector2(20, 0)
 collision_mask = 8
 
-[node name="Killzone" parent="." instance=ExtResource("3_fnyoh")]
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Killzone" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
-position = Vector2(-4.5, 4)
-shape = SubResource("RectangleShape2D_5yewl")
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_1nb2q")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Killzone" to="." method="_on_killzone_body_entered"]
