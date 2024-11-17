@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://bk5cmht7e56ao"]
+[gd_scene load_steps=18 format=4 uid="uid://bk5cmht7e56ao"]
 
 [ext_resource type="PackedScene" uid="uid://beleedw7rihlp" path="res://scenes/player.tscn" id="1_xe3kd"]
 [ext_resource type="Texture2D" uid="uid://bybe78tdc4s6h" path="res://sprites/map/tileset.png" id="2_i6gg3"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dj60pj2sw564l" path="res://scenes/cherry.tscn" id="4_jouqt"]
 [ext_resource type="PackedScene" uid="uid://ighjye8pwkar" path="res://scenes/opusum.tscn" id="5_15x4n"]
 [ext_resource type="Texture2D" uid="uid://cmjhj1e5vhwl4" path="res://sprites/map/back.png" id="6_gubei"]
+[ext_resource type="Script" path="res://scripts/UIpontuacao.gd" id="7_jprts"]
+[ext_resource type="Texture2D" uid="uid://bouj2ycxuh7pa" path="res://sprites/cherry.png" id="7_u1015"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w88d2"]
 texture = ExtResource("2_i6gg3")
@@ -438,6 +440,16 @@ physics_layer_0/collision_layer = 9
 sources/0 = SubResource("TileSetAtlasSource_3rqkj")
 sources/1 = SubResource("TileSetAtlasSource_jxaan")
 
+[sub_resource type="Theme" id="Theme_8sk53"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3c200"]
+bg_color = Color(0.38, 0.38, 0.38, 1)
+corner_radius_bottom_right = 35
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfj1f"]
+atlas = ExtResource("7_u1015")
+region = Rect2(41.5189, 0, 21.0435, 21)
+
 [node name="Game" type="Node2D"]
 
 [node name="Background" type="TileMapLayer" parent="."]
@@ -502,3 +514,36 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("6_gubei")
+
+[node name="UI" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+script = ExtResource("7_jprts")
+
+[node name="ColorRect" type="Panel" parent="UI"]
+offset_right = 276.0
+offset_bottom = 131.0
+theme = SubResource("Theme_8sk53")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3c200")
+
+[node name="Label" type="Label" parent="UI/ColorRect"]
+layout_mode = 0
+offset_right = 156.0
+offset_bottom = 130.0
+theme_override_font_sizes/font_size = 76
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/ColorRect"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -67.5
+offset_bottom = 64.5
+grow_horizontal = 0
+grow_vertical = 2
+texture = SubResource("AtlasTexture_kfj1f")
