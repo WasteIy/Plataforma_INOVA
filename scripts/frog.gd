@@ -5,7 +5,7 @@ extends CharacterBody2D
 
 
 var SPEED = 70.0
-var JUMP_VELOCITY = -400.0
+var JUMP_VELOCITY = -230.0
 var direction = 1
 
 

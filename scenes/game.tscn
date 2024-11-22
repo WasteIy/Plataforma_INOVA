@@ -508,7 +508,7 @@ position = Vector2(-479, 178)
 position = Vector2(110, -143)
 
 [node name="Frog" parent="Enemies" instance=ExtResource("6_jtwdw")]
-position = Vector2(-157, -11)
+position = Vector2(-534, -11)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1

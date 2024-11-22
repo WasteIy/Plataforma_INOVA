@@ -91,6 +91,12 @@ animations = [{
 "texture": SubResource("AtlasTexture_x58g8")
 }, {
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_x58g8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x58g8")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_bojkp")
 }, {
 "duration": 1.0,
@@ -101,10 +107,19 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_x58g8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x58g8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x58g8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x58g8")
 }],
 "loop": false,
 "name": &"idle",
-"speed": 12.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -116,7 +131,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cy6jy"]
-size = Vector2(22, 20)
+size = Vector2(24.5, 20)
 
 [node name="Frog" type="CharacterBody2D"]
 collision_layer = 4
@@ -124,19 +139,23 @@ script = ExtResource("1_83ygs")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_hjx4i")
-animation = &"death"
+animation = &"idle"
 autoplay = "idle"
+frame = 9
+frame_progress = 1.0
 flip_h = true
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 1)
+visible = false
+position = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_cy6jy")
 
 [node name="Killzone" type="Area2D" parent="."]
-position = Vector2(-1, 1)
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+visible = false
+position = Vector2(0.25, 1)
 shape = SubResource("RectangleShape2D_cy6jy")
 
 [node name="Timer" type="Timer" parent="."]
