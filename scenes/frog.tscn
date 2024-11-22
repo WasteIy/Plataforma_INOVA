@@ -1,0 +1,146 @@
+[gd_scene load_steps=19 format=3 uid="uid://cdj2b3n3ag66a"]
+
+[ext_resource type="Script" path="res://scripts/frog.gd" id="1_83ygs"]
+[ext_resource type="Texture2D" uid="uid://dq0aa48n7erjx" path="res://sprites/enemy-deadth.png" id="2_4h2qv"]
+[ext_resource type="Texture2D" uid="uid://bds8os7wbblmd" path="res://sprites/frog-jump.png" id="3_u8yq6"]
+[ext_resource type="Texture2D" uid="uid://dnco75vyn7qu0" path="res://sprites/frog-idle.png" id="4_q0a44"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4bxse"]
+atlas = ExtResource("2_4h2qv")
+region = Rect2(0, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_efnsi"]
+atlas = ExtResource("2_4h2qv")
+region = Rect2(40, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgjsx"]
+atlas = ExtResource("2_4h2qv")
+region = Rect2(80, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_620ly"]
+atlas = ExtResource("2_4h2qv")
+region = Rect2(120, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_05nt0"]
+atlas = ExtResource("2_4h2qv")
+region = Rect2(160, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6cfo"]
+atlas = ExtResource("2_4h2qv")
+region = Rect2(200, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tab3n"]
+atlas = ExtResource("3_u8yq6")
+region = Rect2(70, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x58g8"]
+atlas = ExtResource("4_q0a44")
+region = Rect2(0, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bojkp"]
+atlas = ExtResource("4_q0a44")
+region = Rect2(35, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ayo7"]
+atlas = ExtResource("4_q0a44")
+region = Rect2(70, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ns06b"]
+atlas = ExtResource("4_q0a44")
+region = Rect2(105, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8f0s"]
+atlas = ExtResource("3_u8yq6")
+region = Rect2(35, 0, 35, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hjx4i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4bxse")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_efnsi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xgjsx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_620ly")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_05nt0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6cfo")
+}],
+"loop": false,
+"name": &"death",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tab3n")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x58g8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bojkp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ayo7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ns06b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x58g8")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s8f0s")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cy6jy"]
+size = Vector2(22, 20)
+
+[node name="Frog" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_83ygs")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_hjx4i")
+animation = &"death"
+autoplay = "idle"
+flip_h = true
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 1)
+shape = SubResource("RectangleShape2D_cy6jy")
+
+[node name="Killzone" type="Area2D" parent="."]
+position = Vector2(-1, 1)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+shape = SubResource("RectangleShape2D_cy6jy")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="Killzone" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

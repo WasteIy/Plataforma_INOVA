@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://ighjye8pwkar"]
 
-[ext_resource type="Script" path="res://scripts/inimigo.gd" id="1_06yhj"]
+[ext_resource type="Script" path="res://scripts/opusum.gd" id="1_drmmg"]
 [ext_resource type="Texture2D" uid="uid://bnjsw6rdtjtf3" path="res://sprites/oposum.png" id="1_u7af3"]
 [ext_resource type="Texture2D" uid="uid://dq0aa48n7erjx" path="res://sprites/enemy-deadth.png" id="2_vfdvs"]
 
@@ -104,14 +104,17 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1nb2q"]
 size = Vector2(24, 20)
 
-[node name="Opusum" type="Node2D"]
-script = ExtResource("1_06yhj")
+[node name="Opusum" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_drmmg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tfaoy")
 animation = &"walking"
 autoplay = "walking"
 flip_h = true
+
+[node name="Timer" type="Timer" parent="."]
 
 [node name="RayCastLeft" type="RayCast2D" parent="."]
 position = Vector2(-2, 4)
@@ -123,11 +126,14 @@ position = Vector2(-2, 4)
 target_position = Vector2(20, 0)
 collision_mask = 8
 
-[node name="Timer" type="Timer" parent="."]
-
 [node name="Killzone" type="Area2D" parent="."]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_1nb2q")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_1nb2q")
 
